@@ -92,19 +92,25 @@ for (let i=0;i<2;i++){
 	textures[i] = buildTexture(null)
 	framebuffers[i] = buildFramebuffer(textures[i])
 }
-textures[0] = updateTexture(textures[0],srcData)
+updateTexture(textures[0],srcData)
 
 
 // gl.uniform1i(uniformLocations.u_Tex,0)  // !@#!@#!@#
 
 // render
 // gl.viewport(0,0,width,height)  // !@#!@#!@#
-// gl.bindTexture(gl.TEXTURE_2D,srcTex)//!@#!@#!@# 
+// gl.bindTexture(gl.TEXTURE_2D,textures[0])//!@#!@#!@# 
+// gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[1])
 gl.drawArrays(gl.TRIANGLES,0,data.length/4)
 
-gl.bindTexture(gl.TEXTURE_2D,textures[1])
-gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[0])
-gl.drawArrays(gl.TRIANGLES,0,data.length/4)
+// gl.bindTexture(gl.TEXTURE_2D,textures[1])
+// gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[0])
+// gl.drawArrays(gl.TRIANGLES,0,data.length/4)
+
+// gl.bindTexture(gl.TEXTURE_2D,textures[1])
+// gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[0])
+// gl.drawArrays(gl.TRIANGLES,0,data.length/4)
+
 // gl.bindTexture(gl.TEXTURE_2D,textures[0])
 // gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[1])
 // gl.drawArrays(gl.TRIANGLES,0,data.length/4)
