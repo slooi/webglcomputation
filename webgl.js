@@ -57,7 +57,7 @@ gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW)
 gl.vertexAttribPointer(
 	attribLocations.a_Position,
 	2,
-	gl.FLOAT,
+	type,
 	0,
 	4*Float32Array.BYTES_PER_ELEMENT,
 	0*Float32Array.BYTES_PER_ELEMENT,
@@ -67,7 +67,7 @@ gl.enableVertexAttribArray(attribLocations.a_Position)
 gl.vertexAttribPointer(
 	attribLocations.a_TexCoord,
 	2,
-	gl.FLOAT,
+	type,
 	0,
 	4*Float32Array.BYTES_PER_ELEMENT,
 	2*Float32Array.BYTES_PER_ELEMENT
@@ -82,22 +82,32 @@ gl.enableVertexAttribArray(attribLocations.a_TexCoord)
 // src
 const srcData = createSrcData()
 print('srcData',srcData)
-const srcTex = buildTexture(srcData)
 
-// dst
-let dstTex = buildTexture(null)
+const textures = []
+const framebuffers = []
 
-// frameBuffer
-const fb = buildFramebuffer(dstTex)
-//!@#!@#!@#
+
+
+for (let i=0;i<2;i++){
+	textures[i] = buildTexture(null)
+	framebuffers[i] = buildFramebuffer(textures[i])
+}
+textures[0] = updateTexture(textures[0],srcData)
 
 
 // gl.uniform1i(uniformLocations.u_Tex,0)  // !@#!@#!@#
 
 // render
 // gl.viewport(0,0,width,height)  // !@#!@#!@#
-gl.bindTexture(gl.TEXTURE_2D,srcTex)//!@#!@#!@# 
+// gl.bindTexture(gl.TEXTURE_2D,srcTex)//!@#!@#!@# 
 gl.drawArrays(gl.TRIANGLES,0,data.length/4)
+
+gl.bindTexture(gl.TEXTURE_2D,textures[1])
+gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[0])
+gl.drawArrays(gl.TRIANGLES,0,data.length/4)
+// gl.bindTexture(gl.TEXTURE_2D,textures[0])
+// gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[1])
+// gl.drawArrays(gl.TRIANGLES,0,data.length/4)
 
 dstTex = new Uint8Array(size) 
 gl.readPixels(0,0,width,height,format,texType,dstTex)

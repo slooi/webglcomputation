@@ -12,6 +12,11 @@ function buildFramebuffer(texture){
 	return framebuffer
 }
 
+function updateTexture(texture,pixels){
+	gl.bindTexture(gl.TEXTURE_2D,texture)
+	gl.texImage2D(gl.TEXTURE_2D,0,format,width,height,0,format,texType,pixels)
+}
+
 function buildTexture(pixels){
 	const texture = gl.createTexture()
 	gl.bindTexture(gl.TEXTURE_2D,texture)

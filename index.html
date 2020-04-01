@@ -34,7 +34,7 @@
 		
 			void main(){
 				vec4 value = texture2D(u_Tex,v_TexCoord);
-				gl_FragColor = 1.0/(1.0+exp(-value*255.0));
+				gl_FragColor = value+1.0/255.0;
 			}
 		</script>
 		<script src="funcs.js"></script>
