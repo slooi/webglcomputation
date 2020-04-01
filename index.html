@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Webgl Computation</title>
+		<style>
+			canvas{
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script type="shader" id="vsSource">
+			attribute vec2 a_Position;
+			attribute vec2 a_TexCoord;
+
+			varying vec2 v_TexCoord;
+
+			void main(){
+				v_TexCoord = a_TexCoord;
+				gl_Position = vec4(a_Position,0,1);
+				gl_PointSize = 2.0;
+			}
+		</script>
+		<script type="shader" id="fsSource">
+			precision highp float;
+
+			varying vec2 v_TexCoord;
+		
+			uniform vec2 u_Add;
+			uniform sampler2D u_Tex;
+		
+			void main(){
+				vec4 value = texture2D(u_Tex,v_TexCoord);
+				gl_FragColor = 1.0/(1.0+exp(-value*255.0));
+			}
+		</script>
+		<script src="funcs.js"></script>
+		<script src="webgl.js"></script>
+	</body>
+
+</html>
