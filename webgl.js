@@ -99,8 +99,15 @@ updateTexture(textures[0],srcData)
 
 // render
 // gl.viewport(0,0,width,height)  // !@#!@#!@#
-// gl.bindTexture(gl.TEXTURE_2D,textures[0])//!@#!@#!@# 
-// gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[1])
+gl.bindTexture(gl.TEXTURE_2D,textures[0])//!@#!@#!@# 
+gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[1])
+gl.drawArrays(gl.TRIANGLES,0,data.length/4)
+
+gl.bindTexture(gl.TEXTURE_2D,textures[1])//!@#!@#!@# 
+gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[0])
+gl.drawArrays(gl.TRIANGLES,0,data.length/4)
+gl.bindTexture(gl.TEXTURE_2D,textures[0])//!@#!@#!@# 
+gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffers[1])
 gl.drawArrays(gl.TRIANGLES,0,data.length/4)
 
 // gl.bindTexture(gl.TEXTURE_2D,textures[1])
