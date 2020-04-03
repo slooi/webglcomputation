@@ -30,11 +30,16 @@
 			varying vec2 v_TexCoord;
 		
 			uniform vec2 u_Add;
-			uniform sampler2D u_Tex;
+			uniform sampler2D u_Tex0;
+			uniform sampler2D u_Tex1;
+			uniform float u_DiaInv;
 		
 			void main(){
-				vec4 value = texture2D(u_Tex,v_TexCoord);
-				gl_FragColor = value+1.0/255.0;
+				vec4 value2 = texture2D(u_Tex1,v_TexCoord);
+
+				vec4 left = texture2D(u_Tex0,vec2(v_TexCoord.x-u_DiaInv,v_TexCoord.y));
+				vec4 center = texture2D(u_Tex0,vec2(v_TexCoord.x,v_TexCoord.y));
+				gl_FragColor.rgba = left-center;
 			}
 		</script>
 		<script src="funcs.js"></script>

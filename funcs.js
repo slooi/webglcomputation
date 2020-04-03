@@ -30,12 +30,21 @@ function buildTexture(pixels){
 	return texture
 }
 
-
-function createSrcData(){
+function createEmptyData(){
 	const data = new Uint8Array(size)		//!@#!@#!@#
 	for(let i=0;i<size;i++){
-		data[i] = i%256
+		data[i] = null
 	}
+	return data
+}
+
+function createSrcData(offset=0){
+	const data = new Uint8Array(size)		//!@#!@#!@#
+	for(let i=0;i<size;i++){
+		data[i] = (i+offset)%256
+	}
+	
+	console.log(data)
 	return data
 }
 
